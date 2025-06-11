@@ -17,8 +17,8 @@ export function getTodayFirestoreFormat() {
 }
 
 /**
- * Parsea un string con formato Firestore a un objeto Date.
- * Retorna un objeto Date válido o Invalid Date si no pudo parsear.
+ * Parser
+ * 
  */
 export function parseFirestoreDate(dateStr) {
   if (!dateStr) return null;
@@ -42,23 +42,17 @@ export function isTodayFirestoreDate(dateStr) {
   return formattedDateStr === todayStr;
 }
 
-/**
- * Retorna el rango de fechas (Date objects) para la semana actual
- * (Lunes a Domingo)
- */
+
 export function getWeekRange() {
   const today = new Date();
 
-  // Obtener el primer día de la semana (lunes)
-  const dayOfWeek = today.getDay(); // domingo=0, lunes=1, ..., sábado=6
-  const diffToMonday = (dayOfWeek + 6) % 7; // días desde lunes
+  const dayOfWeek = today.getDay(); 
+  const diffToMonday = (dayOfWeek + 6) % 7; 
 
-  // Fecha inicio lunes 00:00:00 local
   const start = new Date(today);
   start.setDate(today.getDate() - diffToMonday);
   start.setHours(0, 0, 0, 0);
 
-  // Fecha fin domingo 23:59:59 local
   const end = new Date(start);
   end.setDate(start.getDate() + 6);
   end.setHours(23, 59, 59, 999);
@@ -80,6 +74,5 @@ export function getTodayRange() {
 }
 
 export function formatDayLabel(date) {
-  // Usa date-fns si quieres, o date.toLocaleDateString en español
   return date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' });
 }
